@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sort Wars</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono|Orbitron:900" rel="stylesheet">
+</head>
+<body>
+<canvas class="stars"></canvas>
+<div class="sortwars-title">Sort Wars</div>
+<div class="controls">
+    <label for="sortChoice" style="font-size:1.1rem;">Sort by:</label>
+    <select id="sortChoice">
+        <option value="1">Title</option>
+        <option value="2">Director</option>
+        <option value="3">Release Date</option>
+        <option value="4">Rating</option>
+    </select>
+    <button class="galactic-btn" onclick="shuffleSelected()">SHUFFLE</button>
+    <button class="galactic-btn" onclick="runSorts()">SORT</button>
+</div>
+
+<div class="selection-panel" id="selectionPanel">
+    <div class="select-header">Select Movies to Sort</div>
+    <form id="movieSelectForm" onsubmit="event.preventDefault()">
+        <div class="select-list" id="movieSelectList"></div>
+        <div class="select-actions">
+            <button class="galactic-btn" type="button" onclick="selectAll(true)">Select All</button>
+            <button class="galactic-btn" type="button" onclick="selectAll(false)">Deselect All</button>
+            <button class="galactic-btn" type="button" onclick="showAddMovieForm()" style="margin-left:14px;background:#191919;color:#ffe81f;border:2px solid #ffe81f;">
+                + Add Custom Movie
+            </button>
+        </div>
+        <div id="addMovieForm" style="display:none; margin-top:17px; padding:15px; border-radius:10px; background:#232323;">
+            <div style="font-family:'Star Wars', 'Orbitron', sans-serif; color:#ffe81f; font-size:1.05rem; margin-bottom:9px;">
+                Add Custom Movie
+            </div>
+            <label>Title: <input type="text" id="customTitle" required style="margin:0 7px 7px 0;"></label>
+            <label>Director: <input type="text" id="customDirector" required style="margin:0 7px 7px 0;"></label>
+            <label>Release Date: <input type="date" id="customDate" required style="margin:0 7px 7px 0;"></label>
+            <label>Rating: <input type="number" id="customRating" min="0" max="10" step="0.1" required style="width:65px; margin:0 7px 7px 0;"></label>
+            <button class="galactic-btn" type="button" onclick="addCustomMovie()">Add</button>
+            <button class="galactic-btn" type="button" onclick="hideAddMovieForm()" style="background:#222;color:#ffe81f;border:1px solid #ffe81f;">Cancel</button>
+            <span id="addMovieError" style="color:#ff3c28;font-size:1rem;margin-left:12px;"></span>
+        </div>
+    </form>
+</div>
+
+<div class="display-selected" id="displaySelectedBox" style="display:none">
+    <div class="display-selected-title">
+        Selected Movies
+        <span style="font-size:0.85rem; font-family:monospace; color:#fffde3; margin-left:14px;" id="selectedCount"></span>
+    </div>
+    <div id="selectedMovieTable"></div>
+</div>
+
+<div class="result-row" id="sortResultRow" style="display:none;">
+    <div class="sort-panel jedi-side" id="bubble-panel">
+        <div class="panel-title">
+            Bubble Sort<br>
+            <span class="complexity">
+                Time: O(n²) &nbsp;|&nbsp; Space: O(1)
+            </span>
+        </div>
+        <div class="stats" id="bubbleStats"></div>
+        <div id="bubbleTable"></div>
+    </div>
+    <div class="sort-panel sith-side" id="merge-panel">
+        <div class="panel-title">
+            Merge Sort<br>
+            <span class="complexity">
+                Time: O(n log n) &nbsp;|&nbsp; Space: O(n)
+            </span>
+        </div>
+        <div class="stats" id="mergeStats"></div>
+        <div id="mergeTable"></div>
+    </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
